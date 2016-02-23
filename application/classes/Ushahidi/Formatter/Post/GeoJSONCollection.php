@@ -45,6 +45,14 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 				}
 			}
 
+			$sets = array();
+
+			$setRepository = new Ushahidi_Repository_Set();
+
+			foreach ($entity->sets as $set) {
+				// Selec * FROM `sets` WHERE `id` = $set->id
+			}
+
 			if (! empty($geometries))
 			{
 				$output['features'][] = [
