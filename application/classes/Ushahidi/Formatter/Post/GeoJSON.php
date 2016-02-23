@@ -22,6 +22,7 @@ class Ushahidi_Formatter_Post_GeoJSON implements Formatter
 	public function __invoke($entity)
 	{
 		$features = array();
+
 		foreach($entity->values as $attribute => $values)
 		{
 			foreach($values as $value)
@@ -35,7 +36,8 @@ class Ushahidi_Formatter_Post_GeoJSON implements Formatter
 							'title' => $entity->title,
 							'description' => $entity->content,
 							'id' => $entity->id,
-							'attribute_key' => $attribute
+							'attribute_key' => $attribute,
+							'sets' => $entity->sets 
 							// @todo add mark- attributes based on tag symbol+color
 							//'marker-size' => '',
 							//'marker-symbol' => '',

@@ -85,7 +85,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			$data += [
 				'values' => $this->getPostValues($data['id']),
 				'tags'   => $this->getTagsForPost($data['id']),
-        'sets' => $this->getSetsForPost($data['id']),
+        		'sets' => $this->getSetsForPost($data['id']),
 				'completed_stages' => $this->getCompletedStagesForPost($data['id']),
 			];
 		}
