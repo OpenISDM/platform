@@ -87,6 +87,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 				'tags'   => $this->getTagsForPost($data['id']),
         		'sets' => $this->getSetsForPost($data['id']),
 				'completed_stages' => $this->getCompletedStagesForPost($data['id']),
+				'set_names' => $this->getSetsForPost($data['id']),
 			];
 		}
 
@@ -741,6 +742,20 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		return $result->as_array(NULL, 'set_id');
 	}
 
+  /**
+	 * Get set_names for a post
+	 * @param  int   $id  post id
+	 * @return array      set names for post
+	 */
+	private function getSetNameInSet($id)
+	{
+		$result = DB::select('set_id')->from('posts_sets')
+			->where('post_id', '=', $id)
+			->execute($this->db);
+		return $result->as_array(NULL, 'set_id');
+	}
+
+
 	// UpdatePostRepository
 	public function isSlugAvailable($slug)
 	{
@@ -946,4 +961,18 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 
 		return $this->getEntity($result);
 	}
+
+	//public function getSetInPostSet($set_id, $set_names)
+	//{
+	//	$result = $this->selectQuery(['set.names' => $set_names])
+	//		->select('sets.*')
+	//		->join('posts_sets', 'INNER') -> on('set.id', '=', 'posts_sets.set_id')
+	//		->limit(1)
+	//		->execute($this->db)
+	//		->current();
+	//
+	//	return $this->getEntity($result);
+	//}
+
+
 }

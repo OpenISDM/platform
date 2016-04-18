@@ -45,13 +45,22 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 				}
 			}
 
-			$sets = array();
+			//Writing code
 
-			$setRepository = new Ushahidi_Repository_Set();
+			//$sets = array();
 
-			foreach ($entity->sets as $set) {
-				// Selec * FROM `sets` WHERE `id` = $set->id
-			}
+			//$setRepository = new Ushahidi_Repository_Set();
+
+			//foreach ($entity->sets as $set) {
+			//	 Selec * FROM 'sets' WHERE 'id' = $set->id
+			//}
+
+			//$setRepository = new Ushahidi_Repository_Set();
+			//foreach ($sets_name as $name => $set_name) {
+			//	Select * FROM 'sets' WHERE 'id' = $set ->id
+			//}
+			//$set_name = DB::select('name')->from('sets')->where('id', '=', 5)->as_object()->execute()
+
 
 			if (! empty($geometries))
 			{
@@ -66,7 +75,8 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 						'description' => $entity->content,
 						'id' => $entity->id,
 						'url' => URL::site(Ushahidi_Rest::url($entity->getResource(), $entity->id), Request::current()),
-						'sets' => $entity->sets
+						'sets' => $entity->sets,
+
 						// @todo add mark- attributes based on tag symbol+color
 						//'marker-size' => '',
 						//'marker-symbol' => '',

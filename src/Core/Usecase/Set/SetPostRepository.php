@@ -18,5 +18,5 @@ interface SetPostRepository
 	 * @param  Int    $set_id
 	 * @return Post
 	 */
-	public function getPostInSet($post_id, $set_id);
+	public function getPostInSet($post_, $set_id);
 }
