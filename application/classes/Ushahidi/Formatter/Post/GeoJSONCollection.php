@@ -45,8 +45,27 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 				}
 			}
 
+
 			if (! empty($geometries))
 			{
+				$setIds = $entity->sets;
+				
+				// Kohana Query Builder
+				$query = DB::select('sets.name')
+							->from('sets')
+							->where('id', 'IN', $setIds);
+
+				// var_dump(Debug::vars((string) $query)) ;
+
+				$set_names = $query->execute();
+
+				$set_name = [];
+
+				foreach ($set_names as $tmp_set_name) {
+					$set_name[] = $tmp_set_name['name'];
+				}
+
+
 				$output['features'][] = [
 					'type' => 'Feature',
 					'geometry' => [
@@ -58,6 +77,8 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 						'description' => $entity->content,
 						'id' => $entity->id,
 						'url' => URL::site(Ushahidi_Rest::url($entity->getResource(), $entity->id), Request::current()),
+						'set_name' => $set_name,
+						// 'location' => $entity->values,
 						// @todo add mark- attributes based on tag symbol+color
 						//'marker-size' => '',
 						//'marker-symbol' => '',
