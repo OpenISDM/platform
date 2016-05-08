@@ -48,23 +48,18 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 
 			if (! empty($geometries))
 			{
-				$setIds = $entity->sets;
+				$set_ids = $entity->sets;
 				
 				// Kohana Query Builder
 				$query = DB::select('sets.name')
 							->from('sets')
-							->where('id', 'IN', $setIds);
-
+							->where('id', 'IN', $set_ids);
 				// var_dump(Debug::vars((string) $query)) ;
-
 				$set_names = $query->execute();
-
 				$set_name = [];
-
 				foreach ($set_names as $tmp_set_name) {
 					$set_name[] = $tmp_set_name['name'];
 				}
-
 
 				$output['features'][] = [
 					'type' => 'Feature',
