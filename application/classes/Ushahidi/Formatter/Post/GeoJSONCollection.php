@@ -47,6 +47,7 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 
 			if (! empty($geometries))
 			{
+
 				$output['features'][] = [
 					'type' => 'Feature',
 					'geometry' => [
@@ -60,8 +61,8 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 						'url' => URL::site(Ushahidi_Rest::url($entity->getResource(), $entity->id), Request::current()),
 						// @todo add mark- attributes based on tag symbol+color
 						//'marker-size' => '',
-						//'marker-symbol' => '',
-						//'marker-color' => '',
+						'marker-symbol' => 'male',
+						'marker-color' => '#'.str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
 						//'resource' => $entity
 					]
 				];
