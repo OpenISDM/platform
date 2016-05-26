@@ -31,6 +31,8 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 			'features' => []
 		];
 
+		$userMarkerColor = [];
+
 		foreach ($entities as $entity)
 		{
 			$geometries = [];
@@ -47,7 +49,10 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 
 			if (! empty($geometries))
 			{
-
+				if(!array_key_exists($entity->user_id, $userMarkerColor)) {		
+					$userMarkerColor[$entity->user_id] = 
+						sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+				}
 				$output['features'][] = [
 					'type' => 'Feature',
 					'geometry' => [
@@ -62,7 +67,8 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 						// @todo add mark- attributes based on tag symbol+color
 						//'marker-size' => '',
 						'marker-symbol' => 'male',
-						'marker-color' => '#'.str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
+						'marker-color' => $userMarkerColor[$entity->user_id],
+						'test' => $entity->user_id.',',
 						//'resource' => $entity
 					]
 				];
