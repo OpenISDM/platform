@@ -9,6 +9,13 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
+// php socketio-emitter lib
+include __DIR__. '/../../../vendor/autoload.php';
+// Cross-Origin Resource Sharing Header $_SERVER['SERVER_NAME']
+header('Access-Control-Allow-Origin: http://localhost:8080');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');
+
 use Ushahidi\Core\Entity;
 use Ushahidi\Core\SearchData;
 use Ushahidi\Core\Usecase;
@@ -72,12 +79,17 @@ abstract class Ushahidi_Repository implements
 	// CreateRepository
 	public function create(Entity $entity)
 	{
+		// // Trigger the event of updating display
+		$emitter = new Emitter();
+		$emitter->emit('update display', 'create'); 
 		return $this->executeInsert($this->removeNullValues($entity->asArray()));
 	}
 
 	// UpdateRepository
 	public function update(Entity $entity)
 	{
+		$emitter = new Emitter();
+		$emitter->emit('update display', 'update'); 
 		return $this->executeUpdate(['id' => $entity->id], $entity->getChanged());
 	}
 
@@ -231,6 +243,10 @@ abstract class Ushahidi_Repository implements
 				$this->getTable()
 			));
 		}
+		
+		// Trigger the event of updating display
+		$emitter = new Emitter();
+		$emitter->emit('update display', $input); 
 
 		$query = DB::insert($this->getTable())
 			->columns(array_keys($input))

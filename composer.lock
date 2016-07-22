@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39277cc22c776787a8f8e911d8023c4c",
-    "content-hash": "a781fb9df1344c5cdb5bce732a099989",
+    "hash": "2a43d1902257bc049546395e87a30d1c",
+    "content-hash": "cfa328e48d8a026444836eb89f16b7d2",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1567,7 +1567,6 @@
                 "php",
                 "url"
             ],
-            "abandoned": "league/uri",
             "time": "2015-09-24 10:19:47"
         },
         {
@@ -2765,23 +2764,23 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "622c5dc0a8036cfc4ccd73c7b1b668a431e69d96"
+                "reference": "6e7133793a8e5a5714a551a8324337374be209df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/622c5dc0a8036cfc4ccd73c7b1b668a431e69d96",
-                "reference": "622c5dc0a8036cfc4ccd73c7b1b668a431e69d96",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6e7133793a8e5a5714a551a8324337374be209df",
+                "reference": "6e7133793a8e5a5714a551a8324337374be209df",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.0"
+                "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
@@ -2811,7 +2810,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-06-11 08:21:19"
+            "time": "2015-12-02 08:37:27"
         },
         {
             "name": "sebastian/exporter",
@@ -3785,6 +3784,143 @@
                 "validate"
             ],
             "time": "2016-03-04 13:27:44"
+        },
+        {
+            "name": "workerman/channel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/Channel.git",
+                "reference": "bcdee86545d18d06e52dbd38da1bf1c189fca883"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/Channel/zipball/bcdee86545d18d06e52dbd38da1bf1c189fca883",
+                "reference": "bcdee86545d18d06e52dbd38da1bf1c189fca883",
+                "shasum": ""
+            },
+            "require": {
+                "workerman/workerman": ">=3.3.0"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Channel\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.workerman.net",
+            "time": "2016-04-22 06:51:05"
+        },
+        {
+            "name": "workerman/phpsocket.io",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/phpsocket.io.git",
+                "reference": "d3575eadb3b8cf90f51dde66118a67354b206d25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io/zipball/d3575eadb3b8cf90f51dde66118a67354b206d25",
+                "reference": "d3575eadb3b8cf90f51dde66118a67354b206d25",
+                "shasum": ""
+            },
+            "require": {
+                "workerman/channel": ">=1.0.0",
+                "workerman/workerman": ">=3.1.8"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "PHPSocketIO\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "Socket.io"
+            ],
+            "time": "2016-06-04 01:55:56"
+        },
+        {
+            "name": "workerman/phpsocket.io-emitter",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/phpsocket.io-emitter.git",
+                "reference": "f29b9a428209a4eb242ac25134c11375b78e73fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/phpsocket.io-emitter/zipball/f29b9a428209a4eb242ac25134c11375b78e73fd",
+                "reference": "f29b9a428209a4eb242ac25134c11375b78e73fd",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "homepage": "http://www.workerman.net",
+            "time": "2016-06-14 09:10:26"
+        },
+        {
+            "name": "workerman/workerman",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/Workerman.git",
+                "reference": "eb7acbb4419395ea24b111fe43a902b8fe7963f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/walkor/Workerman/zipball/eb7acbb4419395ea24b111fe43a902b8fe7963f7",
+                "reference": "eb7acbb4419395ea24b111fe43a902b8fe7963f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "suggest": {
+                "ext-libevent": "For better performance."
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Workerman\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An asynchronous event driven PHP framework for easily building fast, scalable network applications.",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "asynchronous",
+                "event-loop"
+            ],
+            "time": "2016-07-17 15:39:22"
         },
         {
             "name": "zeelot/kohana-media",

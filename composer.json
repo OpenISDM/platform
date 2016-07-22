@@ -46,7 +46,9 @@
         "doctrine/cache": "^1.5@dev",
         "satooshi/php-coveralls": "^2.0@dev",
         "henrikbjorn/phpspec-code-coverage": "~2.0",
-        "ramsey/uuid": "^3.4.1"
+        "ramsey/uuid": "^3.4.1",
+        "workerman/phpsocket.io": "^1.0",
+        "workerman/phpsocket.io-emitter": "^1.0"
     },
     "require-dev": {
         "behat/behat": "~2.5.2",
