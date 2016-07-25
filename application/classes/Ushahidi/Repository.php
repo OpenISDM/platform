@@ -79,23 +79,21 @@ abstract class Ushahidi_Repository implements
 	// CreateRepository
 	public function create(Entity $entity)
 	{
-		// // Trigger the event of updating display
-		$emitter = new Emitter();
-		$emitter->emit('update display', 'create'); 
 		return $this->executeInsert($this->removeNullValues($entity->asArray()));
 	}
 
 	// UpdateRepository
 	public function update(Entity $entity)
 	{
-		$emitter = new Emitter();
-		$emitter->emit('update display', 'update'); 
 		return $this->executeUpdate(['id' => $entity->id], $entity->getChanged());
 	}
 
 	// DeleteRepository
 	public function delete(Entity $entity)
 	{
+		// Trigger the event of deleting post
+		$emitter = new Emitter();
+		$emitter->emit('delete post', $entity->id); 
 		return $this->executeDelete(['id' => $entity->id]);
 	}
 
@@ -244,9 +242,9 @@ abstract class Ushahidi_Repository implements
 			));
 		}
 		
-		// Trigger the event of updating display
+		// Trigger the event of updating post
 		$emitter = new Emitter();
-		$emitter->emit('update display', $input); 
+		$emitter->emit('update post', $input); 
 
 		$query = DB::insert($this->getTable())
 			->columns(array_keys($input))

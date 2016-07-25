@@ -31,4 +31,7 @@ Vagrant.configure("2") do |config|
         "github_token" => ENV.fetch('github_token', '')
     }
   end
+
+  # run socket io server
+  config.vm.provision "shell", inline: "php /var/www/SocketIOServer.php start -d", run: "always"
 end
