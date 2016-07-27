@@ -11,8 +11,8 @@
 
 // php socketio-emitter lib
 include __DIR__. '/../../../vendor/autoload.php';
-// Cross-Origin Resource Sharing Header $_SERVER['SERVER_NAME']
-header('Access-Control-Allow-Origin: http://localhost:8080');
+// Cross-Origin Resource Sharing Header
+header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');
 
