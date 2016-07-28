@@ -12,7 +12,14 @@
 // php socketio-emitter lib
 include __DIR__. '/../../../vendor/autoload.php';
 // Cross-Origin Resource Sharing Header
-header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    $myip = $_SERVER['HTTP_CLIENT_IP'];
+}else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    $myip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+    $myip= $_SERVER['REMOTE_ADDR'];
+}
+header("Access-Control-Allow-Origin: {$myip}");
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');
 
