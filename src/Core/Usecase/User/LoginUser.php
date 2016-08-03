@@ -57,7 +57,8 @@ class LoginUser extends ReadUsecase
 		$this->rateLimiter->limit($entity);
 
 		// ... verify that the password matches
-		$this->authenticator->checkPassword($this->getRequiredIdentifier('password'), $entity->password);
+		// $this->authenticator->checkPassword($this->getRequiredIdentifier('password'), $entity->password);
+		$this->authenticator->checkPassword($this->getRequiredIdentifier('email'), $this->getRequiredIdentifier('password'));
 
 		// ... and return the formatted result.
 		return $this->formatter->__invoke($entity);
@@ -74,9 +75,22 @@ class LoginUser extends ReadUsecase
 
 		// ... attempt to load the entity
 		$entity = $this->repo->getByEmail($email);
+		// +account
+		// if(is_null($entity->getId())) {
+		// 	$regEntity = (object) array(
+		// 		'email' => $this->getRequiredIdentifier('email'),
+		// 		'created' => time(),
+		// 		'realname' => $this->getRequiredIdentifier('email'),
+		// 		);
+		// $this->repo->register($regEntity); 
+		// $entity = $this->getEntity();
+		// var_dump($entity);
+
+		// }
 
 		// ... and verify that the entity was actually loaded
 		$this->verifyEntityLoaded($entity, compact('email'));
+		// if not in the db, code cannot run to here
 
 		// ... then return it
 		return $entity;
