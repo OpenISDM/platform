@@ -14,15 +14,12 @@ use Ushahidi\Core\Exception\AuthenticatorException;
 
 class Ushahidi_Authenticator_Password implements PasswordAuthenticator
 {
-	// public function checkPassword($plaintext, $hash)
-	// {
-	// 	if (!password_verify($plaintext, $hash)) {
-	// 		throw new AuthenticatorException("Password does not match this account");
-	// 	}
-	// 	return true;
-	// }
+	// Original definition: public function checkPassword($plaintext, $hash)
+	// TODO : write interface  implement new class
+
 	public function checkPassword($email, $password)
-	{		
+	{	
+		// echo '### checkPassword()';
 		// authentication from VMS
 		$url = "http://vms-dev.herokuapp.com/api/auth";
 		$header = array(
@@ -30,6 +27,7 @@ class Ushahidi_Authenticator_Password implements PasswordAuthenticator
 			"X-VMS-API-Key: 581dba93a4dbafa42a682d36b015d8484622f8e3543623bec5a291f67f5ddff1"
 			);
 		$data = array(
+			// waiting for new VMS email api
 			// "username" => $email,
 			// "password" => $password,
 			"username" => "danny1227",
@@ -42,7 +40,7 @@ class Ushahidi_Authenticator_Password implements PasswordAuthenticator
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
+		// send request to vms api
 		$result = curl_exec($curl);
 		curl_close($curl);
 	
