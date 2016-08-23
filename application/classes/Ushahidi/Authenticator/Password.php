@@ -26,13 +26,20 @@ class Ushahidi_Authenticator_Password implements PasswordAuthenticator
 			"Content-Type: application/json",
 			"X-VMS-API-Key: 581dba93a4dbafa42a682d36b015d8484622f8e3543623bec5a291f67f5ddff1"
 			);
+
+		if($email = "admin") {
+			$data = array(
+			"username" => $email,
+			"password" => $password,
+		} else {
 		$data = array(
-			// waiting for new VMS email api
-			// "username" => $email,
-			// "password" => $password,
-			"username" => "danny1227",
-			"password" => "1q2w3e4r",
+			"email" => $email,
+			"password" => $password,
+			// "username" => "",
+			// "password" => "",
 			);
+		}
+		
 		$json_data = json_encode($data);
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_POST, 1);
