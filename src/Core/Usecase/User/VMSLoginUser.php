@@ -66,19 +66,36 @@ class VMSLoginUser extends CreateUsecase
 	public function interact()
 	{
 		// Verify the account and password
-		$authenticatePass = $this->authenticator->checkPassword($this->getRequiredIdentifier('email'), $this->getRequiredIdentifier('password'));
-		if($authenticatePass) {
-			// Fetch the entity, using provided identifiers... if there is no that entity, create it
+
+		if(strcmp($this->getRequiredIdentifier('email'), "admin") == 0) {
+			// admin login authentication (local database)
+			// Fetch the entity, using provided identifiers...
 			$entity = $this->getEntity();
 
 			// Rate limit login attempts
-			// $this->rateLimiter->limit($entity);
+			$this->rateLimiter->limit($entity);
+
+			// ... verify that the password matches
+			$this->authenticator->checkPassword($this->getRequiredIdentifier('password'), $entity->password);
 
 			// ... and return the formatted result.
 			return $this->formatter->__invoke($entity);
 		}
+		else {
+			$authenticatePass = $this->authenticator->checkPassword($this->getRequiredIdentifier('email'), $this->getRequiredIdentifier('password'));
+			
+			if($authenticatePass) {
+				// Fetch the entity, using provided identifiers... if there is no that entity, create it
+				$entity = $this->getEntity();
+
+				// Rate limit login attempts
+				// $this->rateLimiter->limit($entity);
+
+				// ... and return the formatted result.
+				return $this->formatter->__invoke($entity);
+		}
 		echo 'passwordcheck() no pass'.PHP_EOL;
-		
+		}
 	}
 
 	// ReadUsecase
