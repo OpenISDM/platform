@@ -84,6 +84,14 @@ class Ushahidi_Validator_Post_Create extends Validator
 
 	protected function getRules()
 	{
+		// Hack to avoid Kohana Validation trying to convert post_date into a string
+		$fullData = $this->validation_engine->getFullData();
+		if ($fullData['post_date']) {
+			$fullData['post_date'] = $fullData['post_date']->format('Y-m-d H:i:s');
+			$this->validation_engine->setFullData($fullData);
+		}
+		// End hack
+
 		$parent_id = $this->validation_engine->getFullData('parent_id');
 		$type = $this->validation_engine->getFullData('type');
 
@@ -114,6 +122,9 @@ class Ushahidi_Validator_Post_Create extends Validator
 			'values' => [
 				[[$this, 'checkValues'], [':validation', ':value', ':fulldata']],
 				[[$this, 'checkRequiredAttributes'], [':validation', ':value', ':fulldata']],
+			],
+			'post_date' => [
+				[[$this, 'validDate'], [':value']],
 			],
 			'tags' => [
 				[[$this, 'checkTags'], [':validation', ':value']],
@@ -354,5 +365,13 @@ class Ushahidi_Validator_Post_Create extends Validator
 	public function onlyAuthorOrUserSet($user_id, $fullData)
 	{
 		return (empty($user_id) OR (empty($fullData['author_email']) AND empty($fullData['author_realname'])) );
+	}
+
+	public function validDate($str)
+	{
+		if ($str instanceof \DateTimeInterface) {
+			return true;
+		}
+		return (strtotime($str) !== FALSE);
 	}
 }

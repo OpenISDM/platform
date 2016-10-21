@@ -171,6 +171,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			'parent', 'form', 'set', 'q', /* LIKE title, content */
 			'created_before', 'created_after',
 			'updated_before', 'updated_after',
+			'date_before', 'date_after',
 			'bbox', 'tags', 'values', 'current_stage',
 			'center_point', 'within_km',
 			'published_to',
@@ -303,6 +304,22 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		{
 			$updated_before = strtotime($search->updated_before);
 			$query->where("$table.updated", '<=', $updated_before);
+		}
+
+		if ($search->date_after)
+		{
+			$date_after = date_create($search->date_after, new DateTimeZone('UTC'));
+			// Convert to UTC (needed in case date came with a tz)
+			$date_after->setTimezone(new DateTimeZone('UTC'));
+			$query->where("$table.post_date", '>=', $date_after->format('Y-m-d H:i:s'));
+		}
+
+		if ($search->date_before)
+		{
+			$date_before = date_create($search->date_before, new DateTimeZone('UTC'));
+			// Convert to UTC (needed in case date came with a tz)
+			$date_before->setTimezone(new DateTimeZone('UTC'));
+			$query->where("$table.post_date", '<=', $date_before->format('Y-m-d H:i:s'));
 		}
 
 		// Bounding box search
@@ -819,6 +836,14 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		// Remove attribute values and tags
 		unset($post['values'], $post['tags'], $post['completed_stages'], $post['sets'], $post['source'], $post['color']);
 
+		// Set default value for post_date
+		if (empty($post['post_date'])) {
+			$post['post_date'] = date_create()->format("Y-m-d H:i:s");
+		// Convert post_date to mysql format
+		} else  {
+			$post['post_date'] = $post['post_date']->format("Y-m-d H:i:s");
+		}
+
 		// Create the post
 		$id = $this->executeInsert($this->removeNullValues($post));
 
@@ -852,7 +877,11 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		// Remove attribute values and tags
 		unset($post['values'], $post['tags'], $post['completed_stages'], $post['sets'], $post['source'], $post['color']);
 
-		// Update the post
+		// Convert post_date to mysql format
+		if(!empty($post['post_date'])) {
+			$post['post_date'] = $post['post_date']->format("Y-m-d H:i:s");
+		}
+
 		$count = $this->executeUpdate(['id' => $entity->id], $post);
 
 		if ($entity->hasChanged('tags'))
@@ -905,7 +934,7 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 				->where('post_id', '=', $post_id)
 				->execute($this->db);
 		}
-		else 
+		else
 		{
 			// Load existing tags
 			$existing = $this->getTagsForPost($post_id);

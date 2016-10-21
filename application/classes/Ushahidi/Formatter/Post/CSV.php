@@ -42,7 +42,7 @@ class Ushahidi_Formatter_Post_CSV implements Formatter
 		// Sort the columns from the heading so that they match with the record keys
 		ksort($heading);
 
-		Kohana::$log->add(Log::ERROR, print_r($heading, true));
+		Kohana::$log->add(Log::INFO, print_r($heading, true));
 
 		// Send response as CSV download
 		header('Access-Control-Allow-Origin: *');
@@ -57,6 +57,11 @@ class Ushahidi_Formatter_Post_CSV implements Formatter
 		foreach ($records as $record)
 		{
 			unset($record['attributes']);
+
+			// Transform post_date to a string
+			if ($record['post_date'] instanceof \DateTimeInterface) {
+				$record['post_date'] = $record['post_date']->format("Y-m-d H:i:s");
+			}
 
 			foreach ($record as $key => $val)
 			{
