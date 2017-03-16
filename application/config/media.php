@@ -45,5 +45,7 @@ return array(
 
 	// Maximum file upload size in bytes. Remember this figure should not be larger
 	// than the maximum file upload size set on the server. 1Mb by default.
-	'max_upload_bytes' => '1048576',
+	//'max_upload_bytes' => '1048576',
+	// Set a larger space (5 Mb) for uploading image
+        'max_upload_bytes' => '5242880',
 );
