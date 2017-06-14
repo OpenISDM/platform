@@ -93,8 +93,8 @@ class VMSLoginUser extends CreateUsecase
 
 				// ... and return the formatted result.
 				return $this->formatter->__invoke($entity);
-		}
-		echo 'passwordcheck() no pass'.PHP_EOL;
+			}
+			echo 'passwordcheck() no pass'.PHP_EOL;
 		}
 	}
 

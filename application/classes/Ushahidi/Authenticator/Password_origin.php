@@ -17,12 +17,8 @@ class Ushahidi_Authenticator_Password implements PasswordAuthenticator
 	public function checkPassword($plaintext, $hash)
 	{
 		if (!password_verify($plaintext, $hash)) {
-                        echo "!!! Fuck You !!!";
 			throw new AuthenticatorException("Password does not match this account");
 		}
-
-		//echo "!!! fuck you !!!";
-
 		return true;
 	}
 }
